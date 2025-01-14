@@ -1,0 +1,10 @@
+I basically made a VCS (Version Control System) like git. my git is named as codelog that's it
+Just remember, my vcs is named codelog, so obviously i will be using codelog commit etc instead and also codelog init will create a .codelog file in my case, I coded for it.
+
+setup.py - setup, the basic, in other words the JSON
+cli.py - In charge of parsing and processing user input.
+data.py - Manages the data in .codelog directory. Here will be the code that actually touches files on disk. Like when git init creates a .git folder, here we will create a .codelog throught this folder only.
+
+
+data.py will create a .codelog using os.mkdir
+cli.py uses argparse library to create sub commands like add commit push to be used after codelog

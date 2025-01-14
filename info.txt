@@ -1,0 +1,19 @@
+Source - https://www.leshenko.net/p/ugit/#
+[] -> Heading
+# -> Comments
+! -> Important
+
+[To create env]
+virtualenv venv
+[to deactvate]
+deactivate
+
+
+
+![to activate env]
+source venv/bin/activate
+
+![first for egg-info]
+pip install --editable .
+
+# python3 setup.py develop --user
