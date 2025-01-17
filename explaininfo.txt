@@ -3,8 +3,20 @@ Just remember, my vcs is named codelog, so obviously i will be using codelog com
 
 setup.py - setup, the basic, in other words the JSON
 cli.py - In charge of parsing and processing user input.
-data.py - Manages the data in .codelog directory. Here will be the code that actually touches files on disk. Like when git init creates a .git folder, here we will create a .codelog throught this folder only.
+data.py - Manages the data in .codelog directory. Here will be the code that actually touches files on disk. Like when git init creates a .git folder, here we will create a .codelog through this folder only.
 
 
 data.py will create a .codelog using os.mkdir
 cli.py uses argparse library to create sub commands like add commit push to be used after codelog
+
+
+Next up we did the SHA1 Hashing and use it to store the objects in .codelog(.git), lets call the hashed id as OID
+So the flow of the command hash-object is:
+1- Get the path of the file to store.
+2- Read the file.
+3- Hash the content of the file using SHA-1.
+4- Store the file under ".codelog/objects/{the SHA-1 hash}".
+
+
+Now I created a cat file which is opposite of hashing, give OID and you will get the file, whatever the OID have to show.
+For this I have to use sys
