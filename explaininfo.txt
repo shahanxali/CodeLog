@@ -24,3 +24,5 @@ For this I have to use sys
 
 Now comes the write tree command, which takes the directory and stores it in .codelog. Till now hashing is done on a file, now it will be on directory
 using write-tree command.
+And like we have cat-file for hash-object to give actual data from hash, we have to create one for write-tree too, becase we made cat-file for getting a file and not a directory
+So read-tree will do so, opposite of write-tree
