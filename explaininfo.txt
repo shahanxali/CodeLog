@@ -26,3 +26,4 @@ Now comes the write tree command, which takes the directory and stores it in .co
 using write-tree command.
 And like we have cat-file for hash-object to give actual data from hash, we have to create one for write-tree too, becase we made cat-file for getting a file and not a directory
 So read-tree will do so, opposite of write-tree
+We needed to delete the old files while reading the directory because at some cases like if A have a.txt and B have a.text, b.text and read-tree reads A then it will have b.text leftover in the directory we are working in
