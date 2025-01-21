@@ -1,3 +1,5 @@
+#For processing the user input, handles the commands
+
 #argparse is for creating CLI commands, Program defining arguements and argparse parses it, here used for creating sub commands like git init or commit
 #sys to read from the file, all text from file
 import argparse
@@ -5,6 +7,7 @@ import sys
 
 import os
 from . import data
+from . import base
 
 
 def main ():
@@ -29,17 +32,20 @@ def parse_args ():
     hash_object_parser.set_defaults (func=hash_object)
     hash_object_parser.add_argument ('file')
 
-    #cat file setup
+    # cat file setup
     cat_file_parser = commands.add_parser ('cat-file')
     cat_file_parser.set_defaults (func=cat_file)
     cat_file_parser.add_argument ('object')
+
+    # write-tree setup
+    write_tree_parser = commands.add_parser ('write-tree')
+    write_tree_parser.set_defaults (func=write_tree)
 
     return parser.parse_args ()
 
 
 # init command for my git, the function to tell what to do when init is called
 def init (args):
-
     data.init ()
     print (f'Initialized empty CodeLog repository in {os.getcwd()}/{data.GIT_DIR}') #last one contains the info of directory
 
@@ -53,4 +59,8 @@ def hash_object (args):
 # Computes hash value to find real one
 def cat_file (args):
     sys.stdout.flush ()
-    sys.stdout.buffer.write (data.get_object (args.object))
+    sys.stdout.buffer.write (data.get_object (args.object, expected = 'none'))
+
+# Hashing for directories, basically for storing whole directory and not a single file
+def write_tree (args):
+    base.write_tree ()

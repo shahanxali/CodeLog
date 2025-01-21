@@ -20,3 +20,7 @@ So the flow of the command hash-object is:
 
 Now I created a cat file which is opposite of hashing, give OID and you will get the file, whatever the OID have to show.
 For this I have to use sys
+
+
+Now comes the write tree command, which takes the directory and stores it in .codelog. Till now hashing is done on a file, now it will be on directory
+using write-tree command.
