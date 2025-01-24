@@ -70,8 +70,11 @@ def hash_object (args):
 
 # Computes hash value to find real one
 def cat_file(args):
+    # Allow any object type by setting expected=None, added this to see commit's oid, hash
+    obj = data.get_object(args.object, expected=None)
     sys.stdout.flush()
-    sys.stdout.buffer.write(data.get_object(args.object, expected='blob'))
+    sys.stdout.buffer.write(obj)
+
 
 # Hashing for directories, basically for storing whole directory and not a single file
 def write_tree (args):

@@ -27,3 +27,4 @@ codelog hash-object <file name> -> Creating hash (named as OID) of file and stor
 codelog cat-file <OID> -> Read the OID and give the data made by hash-object
 codelog write-tree -> Creating hash of directory
 codelog read-tree -> Reading the hash of the directory made by write-tree
+codelog commit -m "<info>" -> creates messeges as user want to store

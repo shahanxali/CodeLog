@@ -95,7 +95,8 @@ def read_tree (tree_oid):
         os.makedirs (os.path.dirname (path), exist_ok=True)
         with open (path, 'wb') as f:
             f.write (data.get_object (oid))
-
+        # print(f'Restored {path} from tree {tree_oid}')
+        print(f'Restored {path} from tree {tree_oid}')
 
 
 
@@ -106,7 +107,13 @@ def commit(info):
     commit += '\n'
     commit += f'{info}\n'
 
-    return data.hash_object (commit.encode (), 'commit')
+    # creating a file to store last commits, in head which will be located in .codelog, I am creating OID of the hash and store that oid in head
+    # so that when new commit comes, it doesnt make standalone object, but make a series with previous ones
+    oid = data.hash_object (commit.encode (), 'commit')
+
+    data.set_HEAD (oid)
+
+    return oid
 
 
 
@@ -114,4 +121,4 @@ def commit(info):
 
 # it ignores the path of .codelog
 def is_ignored(path):
-    return any(ignored in path.split('/') for ignored in ['.codelog', '.git'])
+    return any(ignored in path.split('/') for ignored in ['.codelog', '.git', 'venv'])

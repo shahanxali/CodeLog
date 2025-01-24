@@ -12,6 +12,13 @@ def init ():
     os.makedirs (f'{GIT_DIR}/objects') # creation of directory to store hashes
 
 
+# HEAD to store previous commits
+def set_HEAD (oid):
+    with open (f'{GIT_DIR}/HEAD', 'w') as f:
+        f.write (oid)
+
+
+
 # Creation of OID (the SHA1 key)
 def hash_object (data, type_='blob'):
 
