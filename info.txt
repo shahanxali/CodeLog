@@ -17,3 +17,13 @@ source venv/bin/activate
 pip install --editable .
 
 # python3 setup.py develop --user
+
+
+
+[commands created thus far]
+
+codelog init -> Created .codelog folder to store the directories or files
+codelog hash-object <file name> -> Creating hash (named as OID) of file and store in .codelog folder
+codelog cat-file <OID> -> Read the OID and give the data made by hash-object
+codelog write-tree -> Creating hash of directory
+codelog read-tree -> Reading the hash of the directory made by write-tree

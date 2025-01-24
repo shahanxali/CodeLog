@@ -11,13 +11,13 @@ from . import base
 
 
 def main ():
-    args = parse_args ()
+    args = parse_args()
     args.func (args)
 
 
 # Parse Arguements (parse = extracting meaningfull components) basic
 # This function sets up the arguement parser for CLI (command line interface)
-def parse_args ():
+def parse_args():
     parser = argparse.ArgumentParser ()
 
     commands = parser.add_subparsers (dest='command')
@@ -27,12 +27,12 @@ def parse_args ():
     init_parser = commands.add_parser ('init')
     init_parser.set_defaults (func=init)
 
-    # hashing setup
+    # hash-object setup
     hash_object_parser = commands.add_parser ('hash-object')
     hash_object_parser.set_defaults (func=hash_object)
     hash_object_parser.add_argument ('file')
 
-    # cat file setup
+    # cat-file setup
     cat_file_parser = commands.add_parser ('cat-file')
     cat_file_parser.set_defaults (func=cat_file)
     cat_file_parser.add_argument ('object')
@@ -42,14 +42,21 @@ def parse_args ():
     write_tree_parser.set_defaults (func=write_tree)
 
     # read-tree setup
-    read_tree_parser = command.add_parser('read-tree')
-    read_tree_parser.set_default(func = read_tree);
-    read_tree_parser.add_arguement('tree');
+    read_tree_parser = commands.add_parser('read-tree')
+    read_tree_parser.set_defaults(func = read_tree)
+    read_tree_parser.add_argument('tree')
+
+    # commit setup
+    commit_parser = commands.add_parser ('commit')
+    commit_parser.set_defaults (func = commit)
+    commit_parser.add_argument ('-m', '--message', required=True)
 
     return parser.parse_args ()
 
 
-# init command for my git, the function to tell what to do when init is called
+#Main function what to do when the codelog is called
+
+# init command for my git
 def init (args):
     data.init ()
     print (f'Initialized empty CodeLog repository in {os.getcwd()}/{data.GIT_DIR}') #last one contains the info of directory
@@ -62,9 +69,9 @@ def hash_object (args):
 
 
 # Computes hash value to find real one
-def cat_file (args):
-    sys.stdout.flush ()
-    sys.stdout.buffer.write (data.get_object (args.object, expected = 'none'))
+def cat_file(args):
+    sys.stdout.flush()
+    sys.stdout.buffer.write(data.get_object(args.object, expected='blob'))
 
 # Hashing for directories, basically for storing whole directory and not a single file
 def write_tree (args):
@@ -73,4 +80,9 @@ def write_tree (args):
 
 # Reading the hash of a directory (created by write tree)
 def read_tree(args):
-    base.read_tree(args.tree())
+    base.read_tree(args.tree)
+
+
+# Commit command to attach other information WE want to provide like date or time or any messages
+def commit (args):
+    print (base.commit (args.message))

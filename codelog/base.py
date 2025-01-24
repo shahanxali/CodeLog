@@ -100,7 +100,18 @@ def read_tree (tree_oid):
 
 
 
+# commit command, takes message and int 'commit' txt it is stored such a way, first store key value then new line and then the message provided
+def commit(info):
+    commit = f'tree {write_tree ()}\n'
+    commit += '\n'
+    commit += f'{info}\n'
+
+    return data.hash_object (commit.encode (), 'commit')
+
+
+
+
 
 # it ignores the path of .codelog
-def is_ignored (path):
-    return '.codelog' in path.split ('/')
+def is_ignored(path):
+    return any(ignored in path.split('/') for ignored in ['.codelog', '.git'])

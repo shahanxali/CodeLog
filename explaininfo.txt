@@ -1,4 +1,4 @@
-I basically made a VCS (Version Control System) like git. my git is named as codelog that's it
+zI basically made a VCS (Version Control System) like git. my git is named as codelog that's it
 Just remember, my vcs is named codelog, so obviously i will be using codelog commit etc instead and also codelog init will create a .codelog file in my case, I coded for it.
 
 setup.py - setup, the basic, in other words the JSON
@@ -27,3 +27,6 @@ using write-tree command.
 And like we have cat-file for hash-object to give actual data from hash, we have to create one for write-tree too, becase we made cat-file for getting a file and not a directory
 So read-tree will do so, opposite of write-tree
 We needed to delete the old files while reading the directory because at some cases like if A have a.txt and B have a.text, b.text and read-tree reads A then it will have b.text leftover in the directory we are working in
+
+
+Now we created a commit command which does nothing but add some additional info to the directory or file we are saving in .codelog. Any information we woulf like to store with the files like date time or jokes or whatever we want.
