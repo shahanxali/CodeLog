@@ -31,3 +31,9 @@ We needed to delete the old files while reading the directory because at some ca
 
 Now we created a commit command which does nothing but add some additional info to the directory or file we are saving in .codelog. Any information we would like to store with the files like date time or jokes or whatever we want.
 What we did next in this apart from creating a hash for it is, we made a file called HEAD in .codelog and store all commits in it, so if new commit comes, the head links to this new commit so we have a series of commits. like a linked list, when new link comes it gets connected in the last of while linked list
+
+
+
+Next up is log command which is nothing just printing all the commits happened with their type, OID and commit message.
+What we did is use some libraries like itertool and all to iterate and have really good indentation too for the messages, and one by one printing all commit in order of recent at first
+Just iterated through all OID in objects in .codelog and print such a way

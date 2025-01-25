@@ -17,6 +17,11 @@ def set_HEAD (oid):
     with open (f'{GIT_DIR}/HEAD', 'w') as f:
         f.write (oid)
 
+# function to find out the head, parent
+def get_HEAD ():
+    if os.path.isfile (f'{GIT_DIR}/HEAD'):
+        with open (f'{GIT_DIR}/HEAD') as f:
+            return f.read ().strip ()
 
 
 # Creation of OID (the SHA1 key)

@@ -1,5 +1,10 @@
 #For high level coding
 
+import itertools
+import operator
+
+from collections import namedtuple
+
 import os
 
 from . import data
@@ -104,6 +109,12 @@ def read_tree (tree_oid):
 # commit command, takes message and int 'commit' txt it is stored such a way, first store key value then new line and then the message provided
 def commit(info):
     commit = f'tree {write_tree ()}\n'
+
+
+    HEAD = data.get_HEAD ()
+    if HEAD:
+        commit += f'parent {HEAD}\n'
+
     commit += '\n'
     commit += f'{info}\n'
 
@@ -115,6 +126,29 @@ def commit(info):
 
     return oid
 
+
+
+# For log command which prints all commits
+# Tuple
+Commit = namedtuple ('Commit', ['tree', 'parent', 'message'])
+
+# get_commit command to iterate through all the commits, their type, their OID and the commit message are printed in the terminal one by one
+def get_commit (oid):
+    parent = None
+
+    commit = data.get_object (oid, 'commit').decode ()
+    lines = iter (commit.splitlines ())
+    for line in itertools.takewhile (operator.truth, lines):
+        key, value = line.split (' ', 1)
+        if key == 'tree':
+            tree = value
+        elif key == 'parent':
+            parent = value
+        else:
+            assert False, f'Unknown field {key}'
+
+    message = '\n'.join (lines)
+    return Commit (tree=tree, parent=parent, message=message)
 
 
 
